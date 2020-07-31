@@ -21,47 +21,51 @@ console.log('3');
 
 // Synchronous callback    즉각적으로 동기적으로
 
-function printImmediately(print){ //호이스팅에 의해 함수선언이 맨위로 올라간다.
+function printImmediately(print) { //호이스팅에 의해 함수선언이 맨위로 올라간다.
     print();
-} 
+}
 
-printImmediately(()=> console.log('hello'));
+printImmediately(() => console.log('hello'));
 // Asynchronous callback    언제 실행될지 모르는
 
-function printWithDelay(print,timeout){
-     setTimeout(print,timeout);
-     };
- printWithDelay(() => console.log('async callback'),2000);
+function printWithDelay(print, timeout) {
+    setTimeout(print, timeout);
+};
+printWithDelay(() => console.log('async callback'), 2000);
 
 
 // Callback Hell example
 
-class UserStorage{
-    loginUser(id,password){
-        return new Promise((resolve,reject) => {
+class UserStorage {
+    loginUser(id, password) {
+        return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if(
-                    (id ==='ellie' && password === 'dream') ||
-                    (id ==='coder' && password === 'academy')
-                ){
-                        resolve(id);
-                      } else{
-                        reject(new Error('not found'));
-                    }
+                if (
+                    (id === 'ellie' && password === 'dream') ||
+                    (id === 'coder' && password === 'academy')
+                ) {
+                    resolve(id);
+                } else {
+                    reject(new Error('not found'));
+                }
             }, 2000);
         });
-        
+
     }
-    getRoles(user){
-        return new Promise((resolve,reject){
-            setTimeout(() => { 
-                if(user ==='ellie'){
-                    resolve({name: 'ellie', role:'admin'});
-                }else{
+    getRoles(user) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (user === 'ellie') {
+                    resolve({
+                        name: 'ellie',
+                        role: 'admin'
+                    });
+                } else {
                     reject(new Error('no access'));
                 }
             }, 1000);
         })
+
     }
 }
 
@@ -69,10 +73,10 @@ const userStorage = new UserStorage();
 const id = prompt('enter your id');
 const password = prompt('enter your password');
 
-userStorage.loginUser(id,password)
-.then(userStorage.getRoles)
-.then(user => alert(`Hello ${user.name}, you have a ${user.role} role`) )
-.catch(console.log);
+userStorage.loginUser(id, password)
+    .then(userStorage.getRoles)
+    .then(user => alert(`Hello ${user.name}, you have a ${user.role} role`))
+    .catch(console.log);
 
 
 // userStorage.loginUser(
