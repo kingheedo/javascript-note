@@ -1,10 +1,10 @@
 // async & await
 // clear style of using promise:)
 
-
-function fetchUser(){
-    return new Promise((resolve,reject) => {
-    //do network request in 10 secs...
+// 기본적인 Promise 사용
+function fetchUser() {
+    return new Promise((resolve, reject) => {
+        //do network request in 10 secs...
         resolve('ellie');
     })
 }
@@ -13,10 +13,10 @@ user.then(console.log);
 console.log(user);
 
 
-// 1.async  async를 앞에 쓰면 자동으로 promise로 바뀐다.  
-async function fetchUser(){
+// 1.async  async를 앞에 쓰면 자동으로 promise로 바뀐다. 간략화 가능.
+async function fetchUser() {
     //do network request in 10 secs...
-        return 'ellie';
+    return 'ellie';
 }
 const user = fetchUser();
 user.then(console.log);
@@ -24,17 +24,16 @@ console.log(user);
 
 //2.await 
 
-function delay(ms){
+function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getApple(){
+async function getApple() {
     await delay(2000);
-    throw 'error';
     return 'apple';
 }
 
-async function getBanana(){
+async function getBanana() {
     await delay(1000);
     return 'banana';
 }
@@ -48,24 +47,23 @@ async function getBanana(){
 // }
 
 
-async function pickFruits(){
-    const applePromise = getApple();
-    const bananaPromise = getBanana();
-    const apple = await applePromise();
-    const banana = await bananaPromise();
-    return `${apple} + ${banana}`;
-}
-pickFruits().then(console.log);
+// async function pickFruits() {
+//     const applePromise = getApple();
+//     const bananaPromise = getBanana();
+//     const apple = await applePromise();
+//     const banana = await bananaPromise();
+//     return `${apple} + ${banana}`;
+// }
+// pickFruits().then(console.log);
 
 //3 .useful Promise APIs
-function pickAllFruits(){
+function pickAllFruits() {
     return Promise.all([getApple(), getBanana()])
-    .then(fruits => fruits.join('+')
-    );
+        .then(fruits => fruits.join('+'));
 }
 pickAllFruits().then(console.log);
 
-function pickOnlyOne(){
-    return Promise.race([getApple(),getBanana()]); //가장먼저 나오는것만 출력하게한다.
+function pickOnlyOne() {
+    return Promise.race([getApple(), getBanana()]); //가장먼저 나오는것만 출력하게한다.
 }
 pickOnlyOne().then(console.log);
